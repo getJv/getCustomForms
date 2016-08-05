@@ -1,16 +1,20 @@
 (function(){
 	var app = angular.module('survey',[]);
 
-	app.controller('SurveyController', function(){
+	app.controller('SurveyController', ['$http',function($http){
 
-		this.product = gem;
+		var survey = this;
+		$http.get('http://localhost/getCustomForms/server/server.php').success(function(data){
 
-	});
+			survey.product = data;
+			//console.log(this.product );
 
-	var gem = {
-		name: 'Dodecahedron',
-		price: 2.95,
-		description: '. . .',
-	};
+		});
+
+		console.log(this.survey );
+
+	}]);
+
+	
 
 })();
