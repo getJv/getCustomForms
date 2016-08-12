@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html ng-app="survey">
 <head>
-  <link rel="stylesheet" type="text/css" href="css\bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css\bootstrap.min.css" />
 
 </head>
 
 <body >
 
-  <script type="text/javascript" src="js\angular.min.js"></script>
-  <script type="text/javascript" src="app\app.js"></script>
+	<script type="text/javascript" src="js\angular.min.js"></script>
+	<script type="text/javascript" src="app\app.js"></script>
 
-  <div ng-controller="SurveyController as survey">
-    <h1> {{survey.product.name}} </h1>
-    <h2> ${{survey.product.price}} </h2>
-    <p> {{survey.product.description}} </p>
-  </div>
+
+	<button>Cadastrar Pesquisas</button>
+	<button>Cadastrar Questionarios</button>
+	<button>Cadastrar Questoes</button>
+	<button>Responder Questionarios</button>
+
+
+
+	<form name="surveyForm" ng-controller="SurveyController as surveyCtrl" ng-submit="surveyCtrl.addSurvey()">
+
+		<input type="text" name="name" ng-model="surveyCtrl.newSurvey.name">
+		<input type="submit" name="name" value="Cadastrar">
+
+<h1> {{surveyCtrl.newSurvey.name}} </h1>
+
+	</form>
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

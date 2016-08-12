@@ -68,9 +68,55 @@ class MyDB extends SQLite3
 }
 
 
-$db = new MyDB('../bd/getForms.db');
+class RestSurvey{
 
-echo $db->getJson('select * from surveys');
+		PRIVATE $adapterDB;
+
+	function __construct($newAdapterDB){
+
+		$this->adapterDB = $newAdapterDB;
+	}
+
+
+	public function getSurveys(){
+
+
+		echo $this->adapterDB->getJson('select * from surveys');
+
+	}
+
+	public function addSurvey($nameSurvey){
+
+
+		echo $this->adapterDB->getJson("insert into surveys (name ) values ('". $_REQUEST['name'] ."')");
+
+	}
+
+}
+
+
+$options = array("addSurvey","getSurveys");
+
+try{
+	if(!in_array($_REQUEST['function'], $options)){ throw new Exception("This function: {$_REQUEST['function']} isn't a option", 1);}
+
+	$db = new MyDB('../bd/getForms.db');
+
+	$RestSurvey = new RestSurvey($db);
+
+	$RestSurvey->{$_REQUEST['function']}($_REQUEST);
+
+}catch(Exception $e){
+
+		echo '<pre>',$e->getMessage(),'<br/>',$e->getTraceAsString();
+
+}
+
+
+
+
+
+
 
 
 /*
