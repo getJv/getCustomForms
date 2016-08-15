@@ -18,7 +18,7 @@
 
 
 
-	<form name="surveyForm" ng-controller="SurveyController as surveyCtrl" ng-submit="surveyCtrl.addSurvey()">
+	<form name="surveyForm" ng-controller="SurveyController as surveyCtrl" ng-submit="surveyCtrl.addSurvey(surveyCtrl.newSurvey)">
 
 		<input type="text" name="name" ng-model="surveyCtrl.newSurvey.name">
 		<input type="submit" name="name" value="Cadastrar">

@@ -87,8 +87,8 @@ class RestSurvey{
 
 	public function addSurvey($nameSurvey){
 
-
-		echo $this->adapterDB->getJson("insert into surveys (name ) values ('". $_REQUEST['name'] ."')");
+		print_r($nameSurvey);
+		echo $this->adapterDB->execute("insert into surveys (name ) values ('". $_REQUEST['name'] ."')");
 
 	}
 
@@ -97,6 +97,9 @@ class RestSurvey{
 
 $options = array("addSurvey","getSurveys");
 
+
+print_r($_REQUEST);exit;
+
 try{
 	if(!in_array($_REQUEST['function'], $options)){ throw new Exception("This function: {$_REQUEST['function']} isn't a option", 1);}
 
@@ -104,7 +107,7 @@ try{
 
 	$RestSurvey = new RestSurvey($db);
 
-	$RestSurvey->{$_REQUEST['function']}($_REQUEST);
+	$RestSurvey->{$_REQUEST['function']}($_POST);
 
 }catch(Exception $e){
 
