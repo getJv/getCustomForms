@@ -45,7 +45,9 @@ class MyDB extends SQLite3
 	public function execute($sql){
 		try{
 			$this->connect();
-			$result = $this->query($sql)->fetchArray(SQLITE3_ASSOC);
+			$results = $this->query($sql);
+			$result = array();
+			while ($row =  $results->fetchArray(SQLITE3_ASSOC) ){$result[] =$row;}
 			$this->close();
 			return $result;
 		}catch(Exception $e){
@@ -60,7 +62,8 @@ class MyDB extends SQLite3
 	* return a json with data from sql statemant or false, if no data.
 	*/
 	public function getJson($sql){
-		
+		//echo "<pre>",$sql;
+		//print_r($this->execute($sql));
 		return json_encode($this->execute($sql));
 
 	}
@@ -77,28 +80,33 @@ class RestSurvey{
 		$this->adapterDB = $newAdapterDB;
 	}
 
-
+	/**
+	* Retorna um JSON com as survey existentes
+	*/
 	public function getSurveys(){
 
 
 		echo $this->adapterDB->getJson('select * from surveys');
 
 	}
-
+	/**
+	* REcebe um objeto stdClass que será utilizado no select
+	*/
 	public function addSurvey($nameSurvey){
 
-		print_r($nameSurvey);
-		echo $this->adapterDB->execute("insert into surveys (name ) values ('". $_REQUEST['name'] ."')");
+		print_r("insert into surveys (name ) values ('". $nameSurvey->name ."')");
+		//exit;
+		echo $this->adapterDB->execute("insert into surveys (name ) values ('". $nameSurvey->name ."')");
 
 	}
+	
+	
 
 }
 
 
 $options = array("addSurvey","getSurveys");
 
-
-print_r($_REQUEST);exit;
 
 try{
 	if(!in_array($_REQUEST['function'], $options)){ throw new Exception("This function: {$_REQUEST['function']} isn't a option", 1);}
@@ -107,7 +115,7 @@ try{
 
 	$RestSurvey = new RestSurvey($db);
 
-	$RestSurvey->{$_REQUEST['function']}($_POST);
+	$RestSurvey->{$_REQUEST['function']}(json_decode(file_get_contents("php://input")));
 
 }catch(Exception $e){
 

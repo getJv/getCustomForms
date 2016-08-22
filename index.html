@@ -2,30 +2,52 @@
 <html ng-app="survey">
 <head>
 	<link rel="stylesheet" type="text/css" href="css\bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css\own.css" />
+	<link rel="stylesheet" type="text/css" href="js\angular-datatables\css\angular-datatables.min.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="js\angular-datatables\css\dataTables.bootstrap.min" />-->
 
 </head>
 
 <body >
 
+	<script type="text/javascript" src="js\jquery.min.js"></script>
+	<script type="text/javascript" src="js\angular-datatables\jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="js\angular.min.js"></script>
+	<script type="text/javascript" src="js\angular-datatables\angular-datatables.min.js"></script>
+	
+	<script type="text/javascript" src="app\Dtable.js"></script>
 	<script type="text/javascript" src="app\app.js"></script>
 
 
 	<button>Cadastrar Pesquisas</button>
 	<button>Cadastrar Questionarios</button>
 	<button>Cadastrar Questoes</button>
-	<button>Responder Questionarios</button>
+	
 
 
+<div ng-controller="SurveyController as surveyCtrl">
+<button ng-click="surveyCtrl.getSurveys()">get teste</button>
+	<form name="surveyForm"  ng-submit="surveyForm.$valid && surveyCtrl.addSurvey()" novalidate>
 
-	<form name="surveyForm" ng-controller="SurveyController as surveyCtrl" ng-submit="surveyCtrl.addSurvey(surveyCtrl.newSurvey)">
+		<input type="text" name="name" ng-model="surveyCtrl.newSurvey.name" required>
+		<input type="submit" name="dname" value="Cadastrar">
 
-		<input type="text" name="name" ng-model="surveyCtrl.newSurvey.name">
-		<input type="submit" name="name" value="Cadastrar">
-
-<h1> {{surveyCtrl.newSurvey.name}} </h1>
-
+		<h1> Ta valendo?{{2+2}} </h1>
 	</form>
+	
+	<div ng-controller="WithAjaxCtrl as showCase">
+		<table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+	</div>
+	
+	
+	<ul ng-repeat="ta in surveyCtrl.surveys">
+		<li>{{ta.name}}</li>
+
+	</ul>
+
+	
+
+</div>
 
 
 
