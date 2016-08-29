@@ -35,15 +35,19 @@
 		<h1> Ta valendo?{{2+2}} </h1>
 	</form>
 	
-	<div ng-controller="WithAjaxCtrl as showCase">
+	<div ng-controller="DtableController as showCase">
+		<h1> {{showCase.tt}} </h1>
 		<table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 	</div>
 	
 	
-	<ul ng-repeat="ta in surveyCtrl.surveys">
-		<li>{{ta.name}}</li>
-
-	</ul>
+	<!-- 
+	<div ng-controller="DtableController as showCase">
+		<table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+	</div>
+	-->
+	
+	
 
 	
 
